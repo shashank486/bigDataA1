@@ -9,9 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/patientDB')
-    .then(() => console.log('✅ MongoDB connected'))
-    .catch(err => console.log('❌ Connection Error:', err));
+// mongoose.connect('mongodb://127.0.0.1:27017/patientDB')
+//     .then(() => console.log('✅ MongoDB connected'))
+//     .catch(err => console.log('❌ Connection Error:', err));
+
+
+require('dotenv').config();
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => console.log('❌ Connection Error:', err));
 
 
 app.get('/', async (req, res) => {
