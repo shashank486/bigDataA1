@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Patient</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f2f2f2; }
+    form { background: white; padding: 20px; border-radius: 10px; width: 300px; margin: auto; }
+    input { display: block; margin-bottom: 15px; width: 100%; padding: 8px; }
+    button { background: #ffc107; color: white; padding: 8px 12px; border: none; border-radius: 5px; }
+    button:hover { background: #e0a800; }
+  </style>
+</head>
+<body>
+  <h1 align="center">Edit Patient</h1>
+  <form action="/edit/<%= patient._id %>" method="POST">
+    <input type="text" name="name" value="<%= patient.name %>" required>
+    <input type="number" name="age" value="<%= patient.age %>" required>
+    <input type="text" name="disease" value="<%= patient.disease %>" required>
+    <input type="text" name="doctor" value="<%= patient.doctor %>" required>
+    <button type="submit">Update Patient</button>
+  </form>
+</body>
+</html>

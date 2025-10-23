@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Patient</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; margin: 40px; }
+    .card { background: white; width: 400px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    h2 { color: #333; text-align: center; }
+    p { font-size: 18px; margin: 10px 0; }
+    a { display: inline-block; text-decoration: none; color: white; background: #007bff; padding: 8px 15px; border-radius: 5px; margin-top: 15px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🩺 Patient Details</h2>
+    <p><strong>Name:</strong> <%= patient.name %></p>
+    <p><strong>Age:</strong> <%= patient.age %></p>
+    <p><strong>Disease:</strong> <%= patient.disease %></p>
+    <p><strong>Doctor:</strong> <%= patient.doctor %></p>
+    <a href="/">⬅ Back to List</a>
+  </div>
+</body>
+</html>

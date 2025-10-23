@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Analytics</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f2f2f2; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    th { background: #007BFF; color: white; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .back { background: #6c757d; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; margin-bottom: 20px; display: inline-block; }
+    .section { margin-top: 30px; }
+    .bar { display: inline-block; height: 15px; background-color: #007BFF; border-radius: 5px; margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <h1>📊 Patient Analytics</h1>
+
+  <a href="/" class="back">⬅ Back to Home</a>
+
+  <div class="section">
+    <h2>Disease Counts</h2>
+    <table>
+      <tr><th>Disease</th><th>Count</th><th>Average Age</th><th>Visualization</th></tr>
+      <% for(let d in diseaseCount) { %>
+        <tr>
+          <td><%= d %></td>
+          <td><%= diseaseCount[d] %></td>
+          <td><%= avgAgeByDisease[d] %></td>
+          <td><div class="bar" style="width:<%= diseaseCount[d]*10 %>px"></div></td>
+        </tr>
+      <% } %>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Top 3 Doctors by Patient Count</h2>
+    <table>
+      <tr><th>Doctor</th><th>Number of Patients</th><th>Visualization</th></tr>
+      <% 
+        let topDocs = Object.entries(doctorCount).sort((a,b)=>b[1]-a[1]).slice(0,3);
+        topDocs.forEach(([doc,count]) => { %>
+        <tr>
+          <td><%= doc %></td>
+          <td><%= count %></td>
+          <td><div class="bar" style="width:<%= count*10 %>px"></div></td>
+        </tr>
+      <% }) %>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Age Group Distribution</h2>
+    <table>
+      <tr><th>Age Group</th><th>Number of Patients</th><th>Visualization</th></tr>
+      <% 
+        const ageGroups = { '0-18':0, '19-40':0, '41-60':0, '60+':0 };
+        patients.forEach(p => {
+          if(p.age <= 18) ageGroups['0-18']++;
+          else if(p.age <= 40) ageGroups['19-40']++;
+          else if(p.age <= 60) ageGroups['41-60']++;
+          else ageGroups['60+']++;
+        });
+        for(let group in ageGroups) { %>
+        <tr>
+          <td><%= group %></td>
+          <td><%= ageGroups[group] %></td>
+          <td><div class="bar" style="width:<%= ageGroups[group]*10 %>px"></div></td>
+        </tr>
+      <% } %>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Other Analytics</h2>
+    <table>
+      <tr><th>Metric</th><th>Patient</th></tr>
+      <tr><td>Youngest Patient</td><td><%= youngest ? youngest.name + " (" + youngest.age + ")" : "N/A" %></td></tr>
+      <tr><td>Oldest Patient</td><td><%= oldest ? oldest.name + " (" + oldest.age + ")" : "N/A" %></td></tr>
+      <tr><td>Most Common Disease</td><td><%= mostCommonDisease || "N/A" %></td></tr>
+    </table>
+  </div>
+</body>
+</html>

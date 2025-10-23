@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Management</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f2f2f2; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    a { text-decoration: none; color: white; padding: 5px 10px; border-radius: 5px; }
+    .add { background: #007BFF; }
+    .edit { background: #ffc107; }
+    .delete { background: #dc3545; }
+    .view { background: #17a2b8; }
+    .analytics { background: #28a745; } /* Green button for analytics */
+    a:hover { opacity: 0.8; }
+    .search-box { margin: 20px 0; }
+    input[type="text"] { padding: 8px; width: 250px; }
+    button { border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🏥 Patient Details Management</h1>
+
+  <!-- Search Box -->
+  <div class="search-box">
+    <form action="/" method="GET">
+      <input type="text" name="search" placeholder="Search by name or doctor..." value="<%= searchQuery %>">
+      <button type="submit" style="background:#007BFF; color:white; padding:8px 15px; border:none; border-radius:5px;">Search</button>
+      <a href="/" style="background:#6c757d; color:white; padding:8px 15px; border-radius:5px; text-decoration:none;">Reset</a>
+    </form>
+  </div>
+
+  <!-- Action Buttons -->
+  <a href="/add" class="add">Add New Patient</a>
+  <a href="/analytics" class="analytics">View Analytics</a>
+
+  <!-- Total Patients & Avg Age -->
+  <p><b>Total Patients:</b> <%= total %> | <b>Average Age:</b> <%= avgAge %></p>
+
+  <!-- Patients Table -->
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Disease</th>
+      <th>Doctor</th>
+      <th>Actions</th>
+    </tr>
+    <% patients.forEach(p => { %>
+      <tr>
+        <td><%= p.name %></td>
+        <td><%= p.age %></td>
+        <td><%= p.disease %></td>
+        <td><%= p.doctor %></td>
+        <td>
+          <a href="/view/<%= p._id %>" class="view">View</a>
+          <a href="/edit/<%= p._id %>" class="edit">Edit</a>
+          <a href="/delete/<%= p._id %>" class="delete" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
